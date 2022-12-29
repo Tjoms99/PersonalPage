@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:portfolio/src/sample_feature/project.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
+import 'sample_feature/projectView.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
           // allows descendant Widgets to display the correct translations
           // depending on the user's locale.
           localizationsDelegates: const [
-            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -50,15 +48,14 @@ class MyApp extends StatelessWidget {
           //
           // The appTitle is defined in .arb files found in the localization
           // directory.
-          onGenerateTitle: (BuildContext context) =>
-              AppLocalizations.of(context)!.appTitle,
+          onGenerateTitle: (BuildContext context) => 'Tjomsaas',
 
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          themeMode: settingsController.themeMode,
+          themeMode: ThemeMode.dark,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
@@ -69,11 +66,32 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
-                  case SampleItemListView.routeName:
+                  case ProjectView.routeName:
                   default:
-                    return SampleItemListView();
+                    return ProjectView(projects: [
+                      underwaterSensorSystem,
+                      fishRobot,
+                      lunarRover,
+                      mazeBuggy,
+                      Project(
+                        "2-Player Tag Game",
+                        "Text4",
+                        "Text2",
+                        Colors.green,
+                        [
+                          'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80'
+                        ],
+                      ),
+                      Project(
+                        "Adjustable Bowl Tilter",
+                        "Text5",
+                        "Text2",
+                        Colors.orange,
+                        [
+                          'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80'
+                        ],
+                      ),
+                    ]);
                 }
               },
             );
